@@ -12,6 +12,11 @@ struct ContentView: View {
     @State private var resetButton: String = "AC"
     @State private var signPos: Bool = true
     @State private var isAdd: Bool = false
+    @State private var isSub: Bool = false
+    @State private var isMulti: Bool = false
+    @State private var isDivide: Bool = false
+    @State private var firstOperand: Int = 0
+    @State private var secondOperand: Int = 0
     var body: some View {
         VStack{
             HStack{
@@ -45,7 +50,9 @@ struct ContentView: View {
                     .cornerRadius(90)
                     .foregroundColor(.black)
                     .font(.system(size: 40))
-                Button("÷"){}
+                Button("÷"){
+                    operation(operation: "÷", num: secondOperand)
+                }
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
                     .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
@@ -57,15 +64,10 @@ struct ContentView: View {
             
             HStack{
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 7)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "7")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 7
                     }
+                    calculation(num: "7")
                 }) {
                     Text("7")
                         .frame(maxWidth: .infinity)
@@ -76,15 +78,10 @@ struct ContentView: View {
                         .font(.system(size: 50))
                 }
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 8)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "8")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 8
                     }
+                    calculation(num: "8")
                 }) {
                     Text("8")
                         .frame(maxWidth: .infinity)
@@ -95,15 +92,10 @@ struct ContentView: View {
                         .font(.system(size: 50))
                 }
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 9)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "9")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 9
                     }
+                    calculation(num: "9")
                 }) {
                     Text("9")
                         .frame(maxWidth: .infinity)
@@ -113,7 +105,9 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
-                Button("x"){}
+                Button("x"){
+                    operation(operation: "x", num: secondOperand)
+                }
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
                     .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
@@ -125,15 +119,10 @@ struct ContentView: View {
             
             HStack{
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 4)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "4")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 4
                     }
+                    calculation(num: "4")
                 }) {
                     Text("4")
                         .frame(maxWidth: .infinity)
@@ -144,15 +133,10 @@ struct ContentView: View {
                         .font(.system(size: 50))
                 }
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 5)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "5")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 5
                     }
+                    calculation(num: "5")
                 }) {
                     Text("5")
                         .frame(maxWidth: .infinity)
@@ -163,15 +147,10 @@ struct ContentView: View {
                         .font(.system(size: 50))
                 }
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 6)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "6")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 6
                     }
+                    calculation(num: "6")
                 }) {
                     Text("6")
                         .frame(maxWidth: .infinity)
@@ -181,7 +160,9 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
-                Button("-"){}
+                Button("-"){
+                    operation(operation: "-", num: secondOperand)
+                }
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
                     .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
@@ -193,15 +174,10 @@ struct ContentView: View {
             
             HStack{
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 1)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "1")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 1
                     }
+                    calculation(num: "1")
                 }) {
                     Text("1")
                         .frame(maxWidth: .infinity)
@@ -212,15 +188,10 @@ struct ContentView: View {
                         .font(.system(size: 50))
                 }
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 2)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "2")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 2
                     }
+                    calculation(num: "2")
                 }) {
                     Text("2")
                         .frame(maxWidth: .infinity)
@@ -231,15 +202,10 @@ struct ContentView: View {
                         .font(.system(size: 50))
                 }
                 Button(action: {
-                    if (isAdd){
-                        if let displayInt = Int(display){
-                            display = ""
-                            display = String(displayInt + 3)
-                        }
-                        isAdd = false
-                    }else{
-                        calculation(num: "3")
+                    if(isAdd || isSub || isMulti || isDivide){
+                        secondOperand = 3
                     }
+                    calculation(num: "3")
                 }) {
                     Text("3")
                         .frame(maxWidth: .infinity)
@@ -250,7 +216,7 @@ struct ContentView: View {
                         .font(.system(size: 50))
                 }
                 Button("+"){
-                    operation(operation: "+")
+                    operation(operation: "+", num: secondOperand)
                 }
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
@@ -280,7 +246,9 @@ struct ContentView: View {
                     .cornerRadius(90)
                     .foregroundColor(.white)
                     .font(.system(size: 50))
-                Button("="){}
+                Button("="){
+                    operation(operation: "", num: secondOperand)
+                }
                     .frame(maxWidth: .infinity)
                     .frame(maxHeight: .infinity)
                     .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
@@ -296,7 +264,8 @@ struct ContentView: View {
     }
     
     func calculation(num: String){
-        if (display == "0"){
+        if let displayInt = Int(display.prefix(1)), display == "0" || isAdd || isSub || isMulti || isDivide{
+            firstOperand = Int(displayInt)
             display = ""
         }
         display += num
@@ -306,6 +275,13 @@ struct ContentView: View {
     func reset(){
         display = "0"
         resetButton = "AC"
+        signPos = true
+        isAdd = false
+        isSub = false
+        isMulti = false
+        isDivide = false
+        firstOperand = 0
+        secondOperand = 0
     }
     
     func sign(){
@@ -325,9 +301,133 @@ struct ContentView: View {
         }
     }
     
-    func operation(operation: String){
+    func operation(operation: String, num: Int){
         if (operation == "+"){
-            isAdd = true
+            if (isAdd && num == 7 ){
+                display = ""
+                display = String(firstOperand + 7)
+            }else if (isAdd && num == 8 ){
+                display = ""
+                display = String(firstOperand + 8)
+            }else if (isAdd && num == 9 ){
+                display = ""
+                display = String(firstOperand + 9)
+            }else if (isAdd && num == 4 ){
+                display = ""
+                display = String(firstOperand + 4)
+            }else if (isAdd && num == 5 ){
+                display = ""
+                display = String(firstOperand + 5)
+            }else if (isAdd && num == 6 ){
+                display = ""
+                display = String(firstOperand + 6)
+            }else if (isAdd && num == 1 ){
+                display = ""
+                display = String(firstOperand + 1)
+            }else if (isAdd && num == 2 ){
+                display = ""
+                display = String(firstOperand + 2)
+            }else if (isAdd && num == 3 ){
+                display = ""
+                display = String(firstOperand + 3)
+            }else{
+                isAdd = true
+            }
+        }else if(operation == "-"){
+            if (isSub && num == 7 ){
+                display = ""
+                display = String(firstOperand - 7)
+            }else if (isAdd && num == 8 ){
+                display = ""
+                display = String(firstOperand - 8)
+            }else if (isSub && num == 9 ){
+                display = ""
+                display = String(firstOperand - 9)
+            }else if (isSub && num == 4 ){
+                display = ""
+                display = String(firstOperand - 4)
+            }else if (isSub && num == 5 ){
+                display = ""
+                display = String(firstOperand - 5)
+            }else if (isSub && num == 6 ){
+                display = ""
+                display = String(firstOperand - 6)
+            }else if (isSub && num == 1 ){
+                display = ""
+                display = String(firstOperand - 1)
+            }else if (isSub && num == 2 ){
+                display = ""
+                display = String(firstOperand - 2)
+            }else if (isSub && num == 3 ){
+                display = ""
+                display = String(firstOperand - 3)
+            }else{
+                isSub = true
+            }
+        }else if(operation == "x"){
+            if (isMulti && num == 7 ){
+                display = ""
+                display = String(firstOperand * 7)
+            }else if (isMulti  && num == 8 ){
+                display = ""
+                display = String(firstOperand * 8)
+            }else if (isMulti  && num == 9 ){
+                display = ""
+                display = String(firstOperand * 9)
+            }else if (isMulti  && num == 4 ){
+                display = ""
+                display = String(firstOperand * 4)
+            }else if (isMulti && num == 5 ){
+                display = ""
+                display = String(firstOperand * 5)
+            }else if (isMulti  && num == 6 ){
+                display = ""
+                display = String(firstOperand * 6)
+            }else if (isMulti  && num == 1 ){
+                display = ""
+                display = String(firstOperand * 1)
+            }else if (isMulti  && num == 2 ){
+                display = ""
+                display = String(firstOperand * 2)
+            }else if (isMulti  && num == 3 ){
+                display = ""
+                display = String(firstOperand * 3)
+            }else{
+                isMulti  = true
+            }
+        }else if(operation == "÷"){
+            if (isDivide && num == 7 ){
+                display = ""
+                display = String(firstOperand / 7)
+            }else if (isDivide && num == 8 ){
+                display = ""
+                display = String(firstOperand / 8)
+            }else if (isDivide  && num == 9 ){
+                display = ""
+                display = String(firstOperand / 9)
+            }else if (isDivide  && num == 4 ){
+                display = ""
+                display = String(firstOperand / 4)
+            }else if (isDivide && num == 5 ){
+                display = ""
+                display = String(firstOperand / 5)
+            }else if (isDivide  && num == 6 ){
+                display = ""
+                display = String(firstOperand / 6)
+            }else if (isDivide  && num == 1 ){
+                display = ""
+                display = String(firstOperand / 1)
+            }else if (isDivide  && num == 2 ){
+                display = ""
+                display = String(firstOperand / 2)
+            }else if (isDivide  && num == 3 ){
+                display = ""
+                display = String(firstOperand / 3)
+            }else{
+                isDivide  = true
+            }
+        }else{
+            display = String(firstOperand + secondOperand)
         }
     }
 }
