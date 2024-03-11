@@ -15,246 +15,362 @@ struct ContentView: View {
     @State private var isSub: Bool = false
     @State private var isMulti: Bool = false
     @State private var isDivide: Bool = false
-    @State private var firstOperand: Int = 0
-    @State private var secondOperand: Int = 0
+    @State private var isEqual: Bool = false
+    @State private var firstOperandStr: String = ""
+    @State private var secondOperandStr: String = ""
     var body: some View {
         VStack{
             HStack{
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
                 Spacer()
 
                 Text(String(display))
                     .foregroundColor(.white)
                     .padding()
                     .font(.system(size: 75))
+                Spacer()
             }
             
             HStack{
+                Spacer()
                 Button(resetButton, action: reset)
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
+                    .frame(maxWidth: 60)
+                    .frame(maxHeight: 100)
                     .background(Color(red: 212 / 255, green: 212 / 255, blue: 210 / 255))
                     .cornerRadius(90)
                     .foregroundColor(.black)
                     .font(.system(size: 40))
+                Spacer()
                 Button("+/-", action: sign)
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
+                    .frame(maxWidth: 60)
+                    .frame(maxHeight: 100)
                     .background(Color(red: 212 / 255, green: 212 / 255, blue: 210 / 255))
                     .cornerRadius(90)
                     .foregroundColor(.black)
                     .font(.system(size: 40))
+                Spacer()
                 Button("%", action: percent)
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
+                    .frame(maxWidth: 60)
+                    .frame(maxHeight: 100)
                     .background(Color(red: 212 / 255, green: 212 / 255, blue: 210 / 255))
                     .cornerRadius(90)
                     .foregroundColor(.black)
                     .font(.system(size: 40))
+                Spacer()
                 Button("÷"){
-                    operation(operation: "÷", num: secondOperand)
+                    if isDivide{
+                        secondOperandStr = display
+                    } else{
+                        firstOperandStr = display
+                    }
+                    
+                    if isDivide{
+                        operation()
+                    }else{
+                        isDivide = true
+                    }
                 }
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
+                    .frame(maxWidth: 60)
+                    .frame(maxHeight: 100)
                     .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
                     .cornerRadius(90)
                     .foregroundColor(.white)
                     .font(.system(size: 50))
+                Spacer()
             }
             .fixedSize(horizontal: false, vertical: true)
             
             HStack{
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 7
+                    if secondOperandStr != ""{
+                        secondOperandStr += "7"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "7"
                     }
                     calculation(num: "7")
                 }) {
                     Text("7")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 8
+                    if secondOperandStr != ""{
+                        secondOperandStr += "8"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "8"
                     }
                     calculation(num: "8")
                 }) {
                     Text("8")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 9
+                    if secondOperandStr != ""{
+                        secondOperandStr += "9"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "9"
                     }
                     calculation(num: "9")
                 }) {
                     Text("9")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button("x"){
-                    operation(operation: "x", num: secondOperand)
+                    if isMulti{
+                        secondOperandStr = display
+                    } else{
+                        firstOperandStr = display
+                    }
+                    
+                    if isMulti{
+                        operation()
+                    }else{
+                        isMulti = true
+                    }
                 }
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
-                    .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
-                    .cornerRadius(90)
-                    .foregroundColor(.white)
-                    .font(.system(size: 50))
+                .frame(maxWidth: 60)
+                .frame(maxHeight: 100)
+                .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
+                .cornerRadius(90)
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                Spacer()
             }
             .fixedSize(horizontal: false, vertical: true)
             
             HStack{
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 4
+                    if secondOperandStr != ""{
+                        secondOperandStr += "4"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "4"
                     }
                     calculation(num: "4")
                 }) {
                     Text("4")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 5
+                    if secondOperandStr != ""{
+                        secondOperandStr += "5"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "5"
                     }
                     calculation(num: "5")
                 }) {
                     Text("5")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 6
+                    if secondOperandStr != ""{
+                        secondOperandStr += "6"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "6"
                     }
                     calculation(num: "6")
                 }) {
                     Text("6")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button("-"){
-                    operation(operation: "-", num: secondOperand)
+                    if isSub{
+                        secondOperandStr = display
+                    } else{
+                        firstOperandStr = display
+                    }
+                    
+                    if isSub{
+                        operation()
+                    }else{
+                        isSub = true
+                    }
                 }
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
-                    .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
-                    .cornerRadius(90)
-                    .foregroundColor(.white)
-                    .font(.system(size: 50))
+                .frame(maxWidth: 60)
+                .frame(maxHeight: 100)
+                .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
+                .cornerRadius(90)
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                Spacer()
             }
             .fixedSize(horizontal: false, vertical: true)
             
             HStack{
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 1
+                    if secondOperandStr != ""{
+                        secondOperandStr += "1"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "1"
                     }
                     calculation(num: "1")
                 }) {
                     Text("1")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 2
+                    if secondOperandStr != ""{
+                        secondOperandStr += "2"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "2"
                     }
                     calculation(num: "2")
                 }) {
                     Text("2")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button(action: {
-                    if(isAdd || isSub || isMulti || isDivide){
-                        secondOperand = 3
+                    if secondOperandStr != ""{
+                        secondOperandStr += "3"
+                    }
+                    else if(isAdd || isSub || isMulti || isDivide){
+                        display = ""
+                        secondOperandStr += "3"
                     }
                     calculation(num: "3")
                 }) {
                     Text("3")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 60)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
+                Spacer()
                 Button("+"){
-                    operation(operation: "+", num: secondOperand)
+                    if isAdd{
+                        secondOperandStr = display
+                    } else{
+                        firstOperandStr = display
+                    }
+                    
+                    if isAdd{
+                        operation()
+                    }else{
+                        isAdd = true
+                    }
                 }
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
-                    .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
-                    .cornerRadius(90)
-                    .foregroundColor(.white)
-                    .font(.system(size: 50))
+                .frame(maxWidth: 60)
+                .frame(maxHeight: 100)
+                .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
+                .cornerRadius(90)
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                Spacer()
             }
             .fixedSize(horizontal: false, vertical: true)
             
             HStack{
+                Spacer()
                 Button(action: {
                     calculation(num: "0")
                 }) {
                     Text("0")
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: .infinity)
+                        .frame(maxWidth: 150)
+                        .frame(maxHeight: 100)
                         .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
                         .cornerRadius(90)
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                 }
-                Button("."){}
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
-                    .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
-                    .cornerRadius(90)
-                    .foregroundColor(.white)
-                    .font(.system(size: 50))
-                Button("="){
-                    operation(operation: "", num: secondOperand)
+                Spacer()
+                Button("."){
+                    display += "."
                 }
-                    .frame(maxWidth: .infinity)
-                    .frame(maxHeight: .infinity)
-                    .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
-                    .cornerRadius(90)
-                    .foregroundColor(.white)
-                    .font(.system(size: 50))
+                .frame(maxWidth: 60)
+                .frame(maxHeight: 100)
+                .background(Color(red: 80 / 255, green: 80 / 255, blue: 80 / 255))
+                .cornerRadius(90)
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                Spacer()
+                Button("="){
+                    isEqual = true
+                    operation()
+                }
+                .frame(maxWidth: 60)
+                .frame(maxHeight: 100)
+                .background(Color(red: 255 / 255, green: 149 / 255, blue: 0 / 255))
+                .cornerRadius(90)
+                .foregroundColor(.white)
+                .font(.system(size: 50))
+                Spacer()
             }
             .fixedSize(horizontal: false, vertical: true)
         }
@@ -264,8 +380,7 @@ struct ContentView: View {
     }
     
     func calculation(num: String){
-        if let displayInt = Int(display.prefix(1)), display == "0" || isAdd || isSub || isMulti || isDivide{
-            firstOperand = Int(displayInt)
+        if display == "0"{
             display = ""
         }
         display += num
@@ -280,8 +395,8 @@ struct ContentView: View {
         isSub = false
         isMulti = false
         isDivide = false
-        firstOperand = 0
-        secondOperand = 0
+        firstOperandStr = ""
+        secondOperandStr = ""
     }
     
     func sign(){
@@ -301,133 +416,67 @@ struct ContentView: View {
         }
     }
     
-    func operation(operation: String, num: Int){
-        if (operation == "+"){
-            if (isAdd && num == 7 ){
+    func operation(){
+        if firstOperandStr.contains(".") || secondOperandStr.contains("."){
+            if let firstOperandInt = Double(firstOperandStr), let secondOperandInt = Double(secondOperandStr), isEqual{
                 display = ""
-                display = String(firstOperand + 7)
-            }else if (isAdd && num == 8 ){
+                if isAdd{
+                    display = String(firstOperandInt + secondOperandInt)
+                }else if isSub{
+                    display = String(firstOperandInt - secondOperandInt)
+                }else if isMulti{
+                    display = String(firstOperandInt * secondOperandInt)
+                } else if isDivide{
+                    display = String(firstOperandInt / secondOperandInt)
+                }
+                isEqual = false
+            }else if let firstOperandInt = Double(firstOperandStr), let secondOperandInt = Double(secondOperandStr), isAdd{
                 display = ""
-                display = String(firstOperand + 8)
-            }else if (isAdd && num == 9 ){
+                display = String(firstOperandInt + secondOperandInt)
+                isAdd = false
+            }else if let firstOperandInt = Double(firstOperandStr), let secondOperandInt = Double(secondOperandStr), isSub{
                 display = ""
-                display = String(firstOperand + 9)
-            }else if (isAdd && num == 4 ){
+                display = String(firstOperandInt - secondOperandInt)
+                isSub = false
+            }else if let firstOperandInt = Double(firstOperandStr), let secondOperandInt = Double(secondOperandStr), isMulti{
                 display = ""
-                display = String(firstOperand + 4)
-            }else if (isAdd && num == 5 ){
+                display = String(firstOperandInt * secondOperandInt)
+                isMulti = false
+            }else if let firstOperandInt = Double(firstOperandStr), let secondOperandInt = Double(secondOperandStr), isDivide{
                 display = ""
-                display = String(firstOperand + 5)
-            }else if (isAdd && num == 6 ){
-                display = ""
-                display = String(firstOperand + 6)
-            }else if (isAdd && num == 1 ){
-                display = ""
-                display = String(firstOperand + 1)
-            }else if (isAdd && num == 2 ){
-                display = ""
-                display = String(firstOperand + 2)
-            }else if (isAdd && num == 3 ){
-                display = ""
-                display = String(firstOperand + 3)
-            }else{
-                isAdd = true
-            }
-        }else if(operation == "-"){
-            if (isSub && num == 7 ){
-                display = ""
-                display = String(firstOperand - 7)
-            }else if (isAdd && num == 8 ){
-                display = ""
-                display = String(firstOperand - 8)
-            }else if (isSub && num == 9 ){
-                display = ""
-                display = String(firstOperand - 9)
-            }else if (isSub && num == 4 ){
-                display = ""
-                display = String(firstOperand - 4)
-            }else if (isSub && num == 5 ){
-                display = ""
-                display = String(firstOperand - 5)
-            }else if (isSub && num == 6 ){
-                display = ""
-                display = String(firstOperand - 6)
-            }else if (isSub && num == 1 ){
-                display = ""
-                display = String(firstOperand - 1)
-            }else if (isSub && num == 2 ){
-                display = ""
-                display = String(firstOperand - 2)
-            }else if (isSub && num == 3 ){
-                display = ""
-                display = String(firstOperand - 3)
-            }else{
-                isSub = true
-            }
-        }else if(operation == "x"){
-            if (isMulti && num == 7 ){
-                display = ""
-                display = String(firstOperand * 7)
-            }else if (isMulti  && num == 8 ){
-                display = ""
-                display = String(firstOperand * 8)
-            }else if (isMulti  && num == 9 ){
-                display = ""
-                display = String(firstOperand * 9)
-            }else if (isMulti  && num == 4 ){
-                display = ""
-                display = String(firstOperand * 4)
-            }else if (isMulti && num == 5 ){
-                display = ""
-                display = String(firstOperand * 5)
-            }else if (isMulti  && num == 6 ){
-                display = ""
-                display = String(firstOperand * 6)
-            }else if (isMulti  && num == 1 ){
-                display = ""
-                display = String(firstOperand * 1)
-            }else if (isMulti  && num == 2 ){
-                display = ""
-                display = String(firstOperand * 2)
-            }else if (isMulti  && num == 3 ){
-                display = ""
-                display = String(firstOperand * 3)
-            }else{
-                isMulti  = true
-            }
-        }else if(operation == "÷"){
-            if (isDivide && num == 7 ){
-                display = ""
-                display = String(firstOperand / 7)
-            }else if (isDivide && num == 8 ){
-                display = ""
-                display = String(firstOperand / 8)
-            }else if (isDivide  && num == 9 ){
-                display = ""
-                display = String(firstOperand / 9)
-            }else if (isDivide  && num == 4 ){
-                display = ""
-                display = String(firstOperand / 4)
-            }else if (isDivide && num == 5 ){
-                display = ""
-                display = String(firstOperand / 5)
-            }else if (isDivide  && num == 6 ){
-                display = ""
-                display = String(firstOperand / 6)
-            }else if (isDivide  && num == 1 ){
-                display = ""
-                display = String(firstOperand / 1)
-            }else if (isDivide  && num == 2 ){
-                display = ""
-                display = String(firstOperand / 2)
-            }else if (isDivide  && num == 3 ){
-                display = ""
-                display = String(firstOperand / 3)
-            }else{
-                isDivide  = true
+                display = String(firstOperandInt / secondOperandInt)
+                isMulti = false
             }
         }else{
-            display = String(firstOperand + secondOperand)
+            if let firstOperandInt = Int(firstOperandStr), let secondOperandInt = Int(secondOperandStr), isEqual{
+                display = ""
+                if isAdd{
+                    display = String(firstOperandInt + secondOperandInt)
+                }else if isSub{
+                    display = String(firstOperandInt - secondOperandInt)
+                }else if isMulti{
+                    display = String(firstOperandInt * secondOperandInt)
+                } else if isDivide{
+                    display = String(firstOperandInt / secondOperandInt)
+                }
+                isEqual = false
+            }else if let firstOperandInt = Int(firstOperandStr), let secondOperandInt = Int(secondOperandStr), isAdd{
+                display = ""
+                display = String(firstOperandInt + secondOperandInt)
+                isAdd = false
+            }else if let firstOperandInt = Int(firstOperandStr), let secondOperandInt = Int(secondOperandStr), isSub{
+                display = ""
+                display = String(firstOperandInt - secondOperandInt)
+                isSub = false
+            }else if let firstOperandInt = Int(firstOperandStr), let secondOperandInt = Int(secondOperandStr), isMulti{
+                display = ""
+                display = String(firstOperandInt * secondOperandInt)
+                isMulti = false
+            }else if let firstOperandInt = Int(firstOperandStr), let secondOperandInt = Int(secondOperandStr), isDivide{
+                display = ""
+                display = String(firstOperandInt / secondOperandInt)
+                isMulti = false
+            }
         }
     }
 }
